@@ -21,18 +21,6 @@ spec:
             - graphql-engine
             - serve
           env:
-            - name: PGUSER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres
-                  key: username
-            - name: PGPASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres
-                  key: password
-            - name: HASURA_GRAPHQL_DATABASE_URL
-              value: postgresql://$(PGUSER)@postgres:5432/postgres
             - name: HASURA_GRAPHQL_ENABLE_CONSOLE
               value: "true"
             - name: HASURA_GRAPHQL_SERVER_PORT

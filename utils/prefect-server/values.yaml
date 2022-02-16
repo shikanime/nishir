@@ -1,0 +1,9 @@
+prefectVersionTag: "core-0.15.13"
+uiVersionTag: "core-0.15.13"
+agent:
+  enabled: true
+serviceAccount:
+  create: false
+jobs:
+  createTenant:
+    enabled: true

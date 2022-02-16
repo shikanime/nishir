@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prefect-server-towel
+  labels:
+    app: prefect-server-towel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prefect-server-towel
+  template:
+    metadata:
+      labels:
+        app: prefect-server-towel
+    spec:
+      containers:
+        - name: towel
+          image: docker.io/prefecthq/server:core-0.15.13
+          command:
+            - python
+          args:
+            - src/prefect_server/services/towel/__main__.py
+          env:
+            - name: PREFECT_SERVER__HASURA__HOST
+              value: prefect-server-hasura
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi

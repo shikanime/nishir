@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prefect-server-create-tenant
+  labels:
+    app: prefect-server-create-tenant
+spec:
+  template:
+    metadata:
+      labels:
+        app: prefect-server-create-tenant
+    spec:
+      containers:
+        - name: create-tenant
+          image: docker.io/prefecthq/prefect:core-0.15.13
+          imagePullPolicy: Always
+          command:
+            - prefect
+          args:
+            - server
+            - create-tenant
+            - --name
+            - default
+            - --slug default
+          env:
+            - name: PREFECT__CLOUD__API
+              value: http://prefect-server-apollo:4200/graphql
+            - name: PREFECT__BACKEND
+              value: server
+      restartPolicy: OnFailure
+  backoffLimit: 10
